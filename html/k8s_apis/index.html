@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title> test </title>
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://" />
+    <meta property="og:image" content="http://" />
+
+    <style>
+        /*
+        table, tr, td {
+            border: 1px solid black;
+        }
+        */
+
+        table {
+            border-top: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            border-bottom: 1px solid black;
+            border-collapse: collapse;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        /* table row highlight */
+        .highlight {
+          background-color: #bbdefb;
+        }
+
+    </style>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="k8s_apis.js"> </script>
+
+    <div class="menu_body">
+    <table>
+        <tr>
+            <!--
+            <td> <div class="menu_list"> <a href="#" onclick="func_menu__list(); return false;"> [List] </a> </div> </td>
+            <td> <div class="menu_create"> <a href="#" onclick="func_menu__create(); return false;"> [Create] </a> </div> </td>
+            -->
+
+            <td> <div class="menu_list"> <a href="#" onclick="change_view(0); return false;"> [List] </a> </div> </td>
+            <td> <div class="menu_create"> <a href="#" onclick="change_view(1); return false;"> [Create] </a> </div> </td>
+        </tr>
+    </table>
+    </div>
+    <hr>
+
+    <div class="content_body" id="content_body">
+        <!--
+        <div class="list_columns"> </div>
+        <div class="list_table" id="list_table"> </div>
+        -->
+
+        <div id="menu_list_body" class="menu_list_body">
+            <div class="list_columns"> </div>
+            <div class="list_table" id="list_table">
+                <table class="table_service_list" id="table_service_list">
+                </table>
+            </div>
+        </div>
+
+        <div id="menu_create_body" class="menu_create_body">
+            [Images] <br>
+            <table>
+                <tr>
+                    <td>
+                        10.0.2.5:5000/test_img_apm:1.0
+                    </td>
+                </tr>
+            </table>
+
+            <hr>
+
+            <div> Deployment Name (e.g., test1, test-1)</div>
+            <!--
+            <div> <input type="text" size=50 name="deployment_name"
+                id="deployment_name" placeholder="test1-img"> </div>
+            -->
+
+            <!-- test -->
+            <div> <input type="text" size=50 name="deployment_name"
+                id="deployment_name" placeholder="test1-img" value="test1-img"> </div>
+            <!-- test -->
+            <br>
+
+
+            <div> Deployment Image (Docker Registry: x.x.x.x:5000/image:tag) </div>
+            <!--
+            <div> <input type="text" size=50 name="deployment_image" id="deployment_image"> </div>
+            -->
+
+            <!-- test -->
+            <div> <input type="text" size=50 name="deployment_image" id="deployment_image"
+                placeholder="10.0.2.5:5000/test_img_apm:1.0"
+                value="10.0.2.5:5000/test_img_apm:1.0"> </div>
+            <!-- test -->
+            <br>
+            Test:
+            <div> Deployment Image: Tomcat (Docker Registry: x.x.x.x:5000/image:tag) </div>
+            <div> <input type="text" size=50 name="deployment_image_tomcat" id="deployment_image_tomcat"
+                placeholder="10.0.2.5:5000/test_img_tomcat:1.0"
+                value="10.0.2.5:5000/test_img_tomcat:1.0"> </div>
+            <div> Deployment Image: MariaDB (Docker Registry: x.x.x.x:5000/image:tag) </div>
+            <div> <input type="text" size=50 name="deployment_image_mariadb" id="deployment_image_mariadb"
+                placeholder="10.0.2.5:5000/test_img_mariadb:1.0"
+                value="10.0.2.5:5000/test_img_mariadb:1.0"> </div>
+            <br>
+
+
+            <div> Deployment Service Name ("deployment name" + "-service": test1-service) </div>
+            <!--
+            <div> <input type="text" size=50 name="deployment_service_name" id="deployment_service_name"> </div>
+            -->
+
+
+            <!-- test -->
+            <!--
+            <div> <input disabled type="text" size=50 name="deployment_service_name" id="deployment_service_name"
+                placeholder="test1-img-service"
+                value="test1-img-service" > </div>
+            -->
+            <!-- test -->
+            <br>
+
+            <!--
+            <div> Container ports </div>
+            <div> <input type="hidden" name="container_ports" id="container_ports"
+                placeholder="30001, 30002, ..."> </div>
+            -->
+
+            <div> Service ports <button name="service_ports__insert" id="serivce_ports_add"
+                    onclick="menu_create__insert_row_submit(); return false;"> INSERT </button> </div>
+            <table class="table_service_ports" id="table_service_ports">
+                <!--
+                <tr>
+                    <div class="service_ports_row">
+                    <td> <input type="text" name="service_ports__name" id="service_ports__name"
+                        placeholder="port name"> </td>
+                    <td> <input type="text" name="service_ports__node_port" id="service_ports__node_port"
+                        placeholder="node port"> </td>
+                    <td> <input type="text" name="service_ports__port" id="service_ports__port"
+                        placeholder="port"> </td>
+                    <td> <input type="text" name="service_ports__target_port" id="service_ports__target_port"
+                        placeholder="target port"> </td>
+                    <td> <button name="service_ports_row_delete"
+                        onclick="menu_create__delete_row_submit(this); return false;"> DELETE </button> </td>
+                    </div>
+                </tr>
+                -->
+
+                <!-- test -->
+                <tr>
+                    <div class="service_ports_row">
+                    <td> <input type="text" name="service_ports__name" id="service_ports__name"
+                        placeholder="port name"
+                        value="tomcat"> </td>
+                    <!--<td> <input type="text" name="service_ports__node_port" id="service_ports__node_port"
+                            placeholder="node port" value="30006"> </td>-->
+                    <td> <input type="text" name="service_ports__port" id="service_ports__port"
+                        placeholder="port" value="8080"> </td>
+                    <td> <input type="text" name="service_ports__target_port" id="service_ports__target_port"
+                        placeholder="target port" value="8080"> </td>
+                    <td> <button name="service_ports_row_delete"
+                            onclick="menu_create__delete_row_submit(this); return false;"> DELETE </button> </td>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="service_ports_row">
+                    <td> <input type="text" name="service_ports__name" id="service_ports__name"
+                        placeholder="port name" value="mariadb"> </td>
+                    <!--<td> <input type="text" name="service_ports__node_port" id="service_ports__node_port"
+                        placeholder="node port" value="30005"> </td>-->
+                    <td> <input type="text" name="service_ports__port" id="service_ports__port"
+                        placeholder="port" value="3306"> </td>
+                    <td> <input type="text" name="service_ports__target_port" id="service_ports__target_port"
+                        placeholder="target port" value="3306"> </td>
+                    <td> <button name="service_ports_row_delete"
+                            onclick="menu_create__delete_row_submit(this); return false;"> DELETE </button> </td>
+                    </div>
+                </tr>
+                <!-- test -->
+
+            </table>
+
+            <br> <br>
+            <button name="menu_create_submit" id="menu_create_submit"
+                onclick="func_menu__create(); return false;"> Create </button>
+        </div>
+    </div>
+
+
+    <form name="form_request" id="form_request" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="" id="" value="">
+    </form>
+</body>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#menu_list_body').hide();
+        $('#menu_create_body').hide();
+
+        $('#menu_list_body').show();
+        func_menu__list();
+    });
+
+    function change_view(v) {
+        $('#menu_list_body').hide();
+        $('#menu_create_body').hide();
+
+        switch (v) {
+            case 0:
+                $('#menu_list_body').show();
+                func_menu__list();
+                break;
+            case 1:
+                $('#menu_create_body').show();
+                break;
+            default:
+                break;
+        }
+    }
+
+    function menu_create__insert_row_submit() {
+        let table = document.getElementById("table_service_ports");
+        let row = table.insertRow(0);
+
+        let cell0 = row.insertCell(0);
+        //let cell1 = row.insertCell(1); // node_port
+        let cell1 = row.insertCell(1);
+        let cell2 = row.insertCell(2);
+        let cell3 = row.insertCell(3);
+
+        cell0.innerHTML =
+            '<td> <input type="text" name="service_ports__name" id="service_ports__name" placeholder="port name"> </td>';
+        //cell1.innerHTML =
+        //    '<td> <input type="text" name="service_ports__node_port" id="service_ports__node_port" placeholder="node port"> </td>';
+        cell1.innerHTML =
+            '<td> <input type="text" name="service_ports__port" id="service_ports__port" placeholder="port"> </td>';
+        cell2.innerHTML =
+            '<td> <input type="text" name="service_ports__target_port" id="service_ports__target_port" placeholder="target port"> </td>';
+        cell3.innerHTML =
+            '<td> <button name="service_ports_row_delete" onclick="menu_create__delete_row_submit(this); return false;"> DELETE </button> </td>';
+    }
+
+    function menu_create__delete_row_submit(v) {
+        let row = v.parentNode.parentNode.rowIndex;
+        document.getElementById("table_service_ports").deleteRow( row );
+    }
+
+</script>
+</html>
